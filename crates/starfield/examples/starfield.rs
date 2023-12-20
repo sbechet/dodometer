@@ -21,7 +21,7 @@ impl eframe::App for MyApp {
             ui.add(egui::Slider::new(&mut self.sfui.sf.rotation_frame.x, -0.001..=0.001).text("X"));
             ui.add(egui::Slider::new(&mut self.sfui.sf.rotation_frame.y, -0.001..=0.001).text("Y"));
             ui.add(egui::Slider::new(&mut self.sfui.sf.rotation_frame.z, -0.001..=0.001).text("Z"));
-            self.sfui.background(ui);
+            self.sfui.background_rect(ui);
         });
     }
 }
@@ -31,7 +31,8 @@ fn main() -> Result<(), eframe::Error> {
     // Log to stdout (if you run with `RUST_LOG=debug`).
     tracing_subscriber::fmt::init();
 
-    let options = eframe::NativeOptions::default();
+    let mut options = eframe::NativeOptions::default();
+    options.viewport.title_shown = Some(false);
     let myapp = MyApp::default();
 
     eframe::run_native("Starfield Demo", options, Box::new(|_cc| Box::new(myapp)))?;

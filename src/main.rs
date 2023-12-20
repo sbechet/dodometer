@@ -109,7 +109,7 @@ impl<'a> eframe::App for DodoMeterApp<'a> {
                         }
                         ui.add_sized(ui.available_size() * self.anim_step, self.slothlove.clone());
                     });
-                    self.sfui.background(ui);
+                    self.sfui.background_rect(ui);
                 });
                 let w8time = Duration::seconds(2);
                 if self.start_time + w8time < Local::now() {
@@ -163,7 +163,7 @@ impl<'a> eframe::App for DodoMeterApp<'a> {
                         self.state = StateApp::Exit;
                     }
 
-                    self.sfui.background(ui);
+                    self.sfui.background_rect(ui);
                 });
             }
             StateApp::Add => {
@@ -204,7 +204,7 @@ impl<'a> eframe::App for DodoMeterApp<'a> {
                     }
                     let stats = SleepingStats::new(self.user.age, &self.user.data);
                     ui.add(stats);
-                    self.sfui.background(ui);
+                    self.sfui.background_rect(ui);
                 });
             }
             StateApp::Config => {
@@ -238,7 +238,7 @@ impl<'a> eframe::App for DodoMeterApp<'a> {
                             .text("Z"),
                     );
 
-                    self.sfui.background(ui);
+                    self.sfui.background_rect(ui);
                 });
             }
             StateApp::About => {
@@ -250,7 +250,7 @@ impl<'a> eframe::App for DodoMeterApp<'a> {
                     ui.centered_and_justified(|ui| {
                         ui.label("On an original idea from one of my daughters, F. previously on a paper.");
                     });
-                    self.sfui.background(ui);
+                    self.sfui.background_rect(ui);
                 });
             }
             StateApp::Exit => {

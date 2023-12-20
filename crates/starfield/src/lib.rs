@@ -186,26 +186,17 @@ impl StarField {
             }
 
             let mut d: i32 = (z * 255.0) as i32;
-            if d > 255 {
-                d = 255;
-            }
-
+            d = d.clamp(0, 255);
             d ^= 255;
 
             let mut r: i32 = d - 75;
-            if r < 0 {
-                r = 0;
-            }
+            r = r.clamp(0,255);
 
             let mut g: i32 = d - 38;
-            if g < 0 {
-                g = 0;
-            }
+            g = g.clamp(0,255);
 
             let mut b: i32 = d + 64;
-            if b > 255 {
-                b = 255;
-            }
+            b = b.clamp(0,255);
 
             self.position.push(SfPixel {
                 pos2: Pos2::new(x.ceil(), y.ceil()),
