@@ -7,6 +7,6 @@ edition = "2021"
 
 [dependencies]
 tracing-subscriber = "0.3"
-egui = "0.24"
-eframe = "0.24"
+egui = "0.26"
+eframe = "0.26"
 pcg = { version = "0.1.0", path = "../pcg" }
