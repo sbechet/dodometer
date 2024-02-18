@@ -162,6 +162,24 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e999941b234f3131b00bc13c22d06e8c5ff726d1b6318ac7eb276997bbb4fef0"
 
 [[package]]
+name = "android_log-sys"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5ecc8056bf6ab9892dcd53216c83d1597487d7dacac16c8df6b877d127df9937"
+
+[[package]]
+name = "android_logger"
+version = "0.13.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c494134f746c14dc653a35a4ea5aca24ac368529da5370ecf41fe0341c35772f"
+dependencies = [
+ "android_log-sys",
+ "env_logger",
+ "log",
+ "once_cell",
+]
+
+[[package]]
 name = "android_system_properties"
 version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -230,7 +248,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f28243a43d821d11341ab73c80bed182dc015c514b951616cf79bd4af39af0c3"
 dependencies = [
  "concurrent-queue",
- "event-listener 5.0.0",
+ "event-listener 5.1.0",
  "event-listener-strategy 0.5.0",
  "futures-core",
  "pin-project-lite",
@@ -294,7 +312,7 @@ dependencies = [
  "futures-io",
  "futures-lite 2.2.0",
  "parking",
- "polling 3.4.0",
+ "polling 3.5.0",
  "rustix 0.38.31",
  "slab",
  "tracing",
@@ -607,7 +625,7 @@ checksum = "fba7adb4dd5aa98e5553510223000e7148f621165ec5f9acd7113f6ca4995298"
 dependencies = [
  "bitflags 2.4.2",
  "log",
- "polling 3.4.0",
+ "polling 3.5.0",
  "rustix 0.38.31",
  "slab",
  "thiserror",
@@ -963,11 +981,14 @@ dependencies = [
 name = "dodometer"
 version = "0.1.1"
 dependencies = [
+ "android_logger",
  "chrono",
  "eframe",
  "egui",
+ "egui-winit",
  "egui_extras",
  "image",
+ "log",
  "serde",
  "serde_json",
  "starfield",
@@ -1013,6 +1034,7 @@ dependencies = [
  "objc",
  "parking_lot",
  "percent-encoding",
+ "pollster",
  "raw-window-handle 0.5.2",
  "raw-window-handle 0.6.0",
  "ron",
@@ -1023,6 +1045,7 @@ dependencies = [
  "wasm-bindgen-futures",
  "web-sys",
  "web-time",
+ "wgpu",
  "winapi",
  "winit",
 ]
@@ -1178,6 +1201,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "env_logger"
+version = "0.10.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4cd405aab171cb85d6735e5c8d9db038c17d3ca007a4d2c25f337935c3d90580"
+dependencies = [
+ "log",
+ "regex",
+]
+
+[[package]]
 name = "epaint"
 version = "0.26.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1246,9 +1279,9 @@ dependencies = [
 
 [[package]]
 name = "event-listener"
-version = "5.0.0"
+version = "5.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b72557800024fabbaa2449dd4bf24e37b93702d457a4d4f2b0dd1f0f039f20c1"
+checksum = "b7ad6fd685ce13acd6d9541a30f6db6567a7a24c9ffd4ba2955d29e3f22c8b27"
 dependencies = [
  "concurrent-queue",
  "parking",
@@ -1271,7 +1304,7 @@ version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "feedafcaa9b749175d5ac357452a9d41ea2911da598fde46ce1fe02c37751291"
 dependencies = [
- "event-listener 5.0.0",
+ "event-listener 5.1.0",
  "pin-project-lite",
 ]
 
@@ -2390,9 +2423,9 @@ dependencies = [
 
 [[package]]
 name = "polling"
-version = "3.4.0"
+version = "3.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "30054e72317ab98eddd8561db0f6524df3367636884b7b21b703e4b280a84a14"
+checksum = "24f040dee2588b4963afb4e420540439d126f73fdacf4a9c486a96d840bac3c9"
 dependencies = [
  "cfg-if",
  "concurrent-queue",
@@ -2401,6 +2434,12 @@ dependencies = [
  "tracing",
  "windows-sys 0.52.0",
 ]
+
+[[package]]
+name = "pollster"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "22686f4785f02a4fcc856d3b3bb19bf6c8160d103f7a99cc258bddd0251dc7f2"
 
 [[package]]
 name = "ppv-lite86"
@@ -2444,9 +2483,9 @@ dependencies = [
 
 [[package]]
 name = "profiling"
-version = "1.0.14"
+version = "1.0.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0f0f7f43585c34e4fdd7497d746bc32e14458cf11c69341cc0587b1d825dde42"
+checksum = "43d84d1d7a6ac92673717f9f6d1518374ef257669c24ebc5ac25d5033828be58"
 
 [[package]]
 name = "qoi"
@@ -3553,6 +3592,7 @@ dependencies = [
  "cfg_aliases",
  "js-sys",
  "log",
+ "naga",
  "parking_lot",
  "profiling",
  "raw-window-handle 0.6.0",
@@ -3602,6 +3642,7 @@ dependencies = [
  "arrayvec",
  "ash",
  "bitflags 2.4.2",
+ "block",
  "cfg_aliases",
  "core-graphics-types",
  "glow",

@@ -7,11 +7,13 @@ authors = ["Sebastien Bechet"]
 repository = "https://codeberg.org/sbechet/dodometer"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[lib]
+crate-type = ["cdylib", "rlib"]
+
 [dependencies]
 tracing-subscriber = "0.3"
+log = "0.4"
 chrono = { version = "0.4", features = ["serde"] }
-
-eframe = { version = "0.26", features = ["persistence"] }
 egui = "0.26"
 egui_extras = { version = "0.26", features = ["file", "svg"] }
 image = { version = "0.24" }
@@ -20,6 +22,20 @@ serde = { version = "1", features = ["derive", "rc"] }
 serde_json = "1"
 
 starfield = { version = "0.1", path = "./crates/starfield", default-features = true }
+
+[target.'cfg(not(target_os = "android"))'.dependencies.eframe]
+version = "0.26"
+default-features = false
+features = ["persistence"]
+
+[target.'cfg(target_os = "android")'.dependencies]
+android_logger = "0.13"
+eframe = { version = "0.26", features = ["wgpu", "persistence", "android-native-activity", "default_fonts"] }
+egui-winit = { version = "0.26", features = ["clipboard", "links"]}
+
+[target.'cfg(target_family = "wasm")'.dependencies]
+#console_error_panic_hook = "0.1.7"
+#wasm-logger = "0.2.0"
 
 [profile.release]
 opt-level = "z"  # Optimize for size.
